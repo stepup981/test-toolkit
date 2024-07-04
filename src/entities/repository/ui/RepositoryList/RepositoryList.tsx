@@ -1,10 +1,13 @@
-import PropTypes from "prop-types";
-
 import RepositoryCard from "@entities/repository/ui/RepositoryCard/RepositoryCard";
+import {Repository} from "@/entities/repository/model/repository";
 
 import "@entities/repository/ui/RepositoryList/repositoryList.scss";
 
-const RepositoryList = ({ repositories }) => {
+interface RepositoryListProps {
+  repositories: Repository[];
+}
+
+const RepositoryList: React.FC<RepositoryListProps> = ({ repositories }) => {
   return (
     <div className="repositories">
       <ul className="repositories__list">
@@ -18,6 +21,5 @@ const RepositoryList = ({ repositories }) => {
   );
 };
 
-RepositoryList.propTypes = {};
 
 export default RepositoryList;

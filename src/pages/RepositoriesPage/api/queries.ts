@@ -1,6 +1,6 @@
 export const GET_REPOSITORIES_QUERY = `
-  query($first: Int!, $after: String) {
-    search(query: "is:public", type: REPOSITORY, first: $first, after: $after) {
+  query($first: Int!, $after: String, $query: String!) {
+    search(query: $query, type: REPOSITORY, first: $first, after: $after) {
       repositoryCount
       edges {
         node {
@@ -14,6 +14,7 @@ export const GET_REPOSITORIES_QUERY = `
             }
           }
         }
+        cursor
       }
     }
   }

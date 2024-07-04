@@ -1,17 +1,12 @@
 import { create } from "zustand";
 import { getRepositories } from "@/pages/RepositoriesPage/api";
-interface Repository {
-  name: string;
-  stars: number;
-  lastCommit: string;
-  url: string;
-}
+import { Repository } from "@/entities/repository/model/repository";
 
 interface RepositoriesPageState {
   repositories: Repository[];
   loading: boolean;
   error: string | null;
-  fetchRepositories: (variables: { first: number; after?: string }) => Promise<void>;
+  fetchRepositories: (variables: { first: number; after?: string; query?: string }) => Promise<void>;
 }
 
 export const useRepositoriesPageStore = create<RepositoriesPageState>((set) => ({
@@ -22,7 +17,7 @@ export const useRepositoriesPageStore = create<RepositoriesPageState>((set) => (
     set({ loading: true, error: null });
     try {
       const response = await getRepositories(variables);
-      console.log(response.data.search.edges)
+      console.log(response.data.search.edges);
       set({ repositories: response.data.search.edges, loading: false });
     } catch (error) {
       set({ error: "Failed to fetch repositories", loading: false });
